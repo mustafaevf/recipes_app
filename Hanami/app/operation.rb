@@ -3,7 +3,7 @@
 
 require "dry/operation"
 
-module Dz
+module RecepiesDz
   class Operation < Dry::Operation
   end
 end

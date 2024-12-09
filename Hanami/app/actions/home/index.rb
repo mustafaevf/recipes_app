@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-module Dz
+module RecepiesDz
   module Actions
-    module Main
-      class Index < Dz::Action
+    module Home
+      class Index < RecepiesDz::Action
         def handle(request, response)
-          response.body = "<h1>test</h1>"
         end
       end
     end

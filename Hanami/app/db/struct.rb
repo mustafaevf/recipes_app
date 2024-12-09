@@ -2,7 +2,7 @@
 
 require "hanami/db/struct"
 
-module Dz
+module RecepiesDz
   module DB
     class Struct < Hanami::DB::Struct
     end

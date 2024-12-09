@@ -1,0 +1,12 @@
+<h1>Рецепты</h1>
+
+<ul>
+  <% recipes.each do |recipe| %>
+    <div style="border: 1px solid #000; margin-bottom: 10px; padding: 10px;">
+      <li>Название: <%= recipe[:title] %></li>
+      <li>Ингредиенты: <%= recipe[:ingredients] %></li>
+      <li>Инструкции: <%= recipe[:instructions] %></li>
+      <li>Время приготовления: <%= recipe[:preparation_time] %> минут</li>
+    </div>
+  <% end %>
+</ul>

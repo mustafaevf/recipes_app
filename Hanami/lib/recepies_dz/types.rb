@@ -2,7 +2,7 @@
 
 require "dry/types"
 
-module Dz
+module RecepiesDz
   Types = Dry.Types
 
   module Types

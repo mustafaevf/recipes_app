@@ -2,7 +2,7 @@
 
 require "hanami"
 
-module Dz
+module RecepiesDz
   class App < Hanami::App
   end
 end

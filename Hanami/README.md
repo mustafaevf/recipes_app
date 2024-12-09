@@ -1,5 +1,1 @@
-# Запуск проекта
-
-```
-hanami server
-```
+# RecepiesDz

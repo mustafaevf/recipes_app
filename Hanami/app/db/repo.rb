@@ -2,7 +2,7 @@
 
 require "hanami/db/repo"
 
-module Dz
+module RecepiesDz
   module DB
     class Repo < Hanami::DB::Repo
     end

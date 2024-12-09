@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Dz
+module RecepiesDz
   class Routes < Hanami::Routes
-    get "/", to: "main.index"
+    root to: "home.index"
   end
 end

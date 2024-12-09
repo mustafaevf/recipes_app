@@ -3,7 +3,7 @@
 
 require "hanami/view"
 
-module Dz
+module RecepiesDz
   class View < Hanami::View
   end
 end

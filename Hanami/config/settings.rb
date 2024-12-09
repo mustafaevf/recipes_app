@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Dz
+module RecepiesDz
   class Settings < Hanami::Settings
     # Define your app settings here, for example:
     #
