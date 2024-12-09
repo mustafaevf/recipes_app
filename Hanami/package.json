@@ -1,0 +1,8 @@
+{
+  "name": "dz",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "hanami-assets": "^2.2.1"
+  }
+}
