@@ -18,10 +18,10 @@ ROM::SQL.migration do
       column :instructions, String, text: true, null: false
       column :preparation_time, Integer, null: false
       column :difficulty, String, null: false
-      column :favorite, :boolean, default: false, null: false
+      # column :favorite, :boolean, default: false, null: false
       foreign_key :category_id, :categories, null: false, on_delete: :cascade
-      column :created_at, DateTime, null: false
-      column :updated_at, DateTime, null: false
+      column :created_at, DateTime, null: false, default: Sequel::CURRENT_TIMESTAMP
+      column :updated_at, DateTime, null: false, default: Sequel::CURRENT_TIMESTAMP
     end
   end
 end

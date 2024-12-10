@@ -1,11 +1,10 @@
-<h1>Рецепты</h1>
+<h1>Рецепты с категорией</h1>
 
 <ul>
   <% recipes.each do |recipe| %>
     <div style="border: 1px solid #000; margin-bottom: 10px; padding: 10px;">
       <a href="/recipes/<%= recipe[:id] %>">
         <li>Название: <%= recipe[:title] %></li>
-        <li>Категория: <%= categories.find { |category| category[:id] == recipe[:category_id] }[:name] %></li>
         <li>Время приготовления: <%= recipe[:preparation_time] %> минут</li>
       </a>
     </div>

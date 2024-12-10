@@ -3,9 +3,10 @@
 module RecepiesDz
   module Relations
     class Categories < RecepiesDz::DB::Relation
-      schema :categories, infer: true
-      associations do
-        has_many :recipes
+      schema :categories, infer: true do
+        associations do
+          has_many :recipes
+        end
       end
     end
   end

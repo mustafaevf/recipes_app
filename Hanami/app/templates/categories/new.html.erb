@@ -1,0 +1,11 @@
+<h1>Добавить категорию</h1>
+
+<form action="/categories" method="POST" style="display: flex; flex-direction: column">
+  <label for="title">Название:</label>
+  <input type="text" id="name" name="name" required>
+  
+  <label for="isActive">Доступность</label>
+  <input type="checkbox" value=true name="isActive" id="isActive" />
+
+  <button type="submit">Добавить</button>
+</form>

@@ -1,0 +1,36 @@
+<h1>Добавить рецепт</h1>
+
+<form action="/recipes/<%= recipe[:id] %>" method="POST" style="display: flex; flex-direction: column">
+  <input type="hidden" name="_method" value="PATCH">
+
+  <label for="title">Название:</label>
+  <input type="text" id="title" name="title" value="<%= recipe[:title] %>" required>
+
+  <label for="category">Категория:</label>
+  <select id="category" name="category_id" required>
+    <% categories.each do |category| %>
+      <option value="<%= category[:id] %>" <%= 'selected' if category[:id] == recipe[:category_id] %>>
+        <%= category[:name] %>
+      </option>
+    <% end %>
+  </select>
+
+  <label for="ingredients">Ингредиенты:</label>
+  <textarea id="ingredients" name="ingredients" required><%= recipe[:ingredients] %></textarea>
+
+  <label for="instructions">Инструкция:</label>
+  <textarea id="instructions" name="instructions" required><%= recipe[:instructions] %></textarea>
+
+  <label for="preparation_time">Время приготовления (минуты):</label>
+  <input type="number" id="preparation_time" name="preparation_time" value="<%= recipe[:preparation_time] %>" required>
+
+  <label for="difficulty">Сложность:</label>
+  <select id="difficulty" name="difficulty" required>
+    <option value="Легкий" <%= "selected" if recipe[:difficulty] == "Легкий" %>>Легкий</option>
+    <option value="Средний" <%= "selected" if recipe[:difficulty] == "Средний" %>>Средний</option>
+    <option value="Сложный" <%= "selected" if recipe[:difficulty] == "Сложный" %>>Сложный</option>
+  </select>
+
+  <button type="submit">Сохранить изменения</button>
+
+</form>

@@ -1,0 +1,18 @@
+<h1>Рецепт: <%= recipe[:title] %></h1>
+
+<p><strong>Ингредиенты:</strong> <%= recipe[:ingredients] %></p>
+<p><strong>Инструкция:</strong> <%= recipe[:instructions] %></p>
+<p><strong>Время приготовления:</strong> <%= recipe[:preparation_time] %> минут</p>
+<p><strong>Категория:</strong> <%= recipe[:category_id] %></p>
+<p><strong>Сложность:</strong> <%= recipe[:difficulty] %></p>
+
+<div>
+  <form action="/recipes/<%= recipe[:id] %>/edit" method="GET" style="display:inline;">
+    <button type="submit">Редактировать</button>
+  </form>
+
+  <form action="/recipes/<%= recipe[:id] %>" method="POST" style="display:inline;">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">Удалить</button>
+  </form>
+</div>

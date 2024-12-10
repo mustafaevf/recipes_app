@@ -2,17 +2,14 @@
 
 module RecepiesDz
   module Views
-    module Home
-      class Index < RecepiesDz::View
-        include Deps["repos.recipe_repo"]
+    module Recipes
+      class Edit < RecepiesDz::View
         include Deps["repos.category_repo"]
 
-        expose :recipes do
-          recipe_repo.all
-        end
         expose :categories do
           category_repo.all
         end
+        expose :recipe
       end
     end
   end

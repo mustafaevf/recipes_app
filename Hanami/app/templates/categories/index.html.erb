@@ -1,0 +1,13 @@
+<h1>Категории</h1>
+
+<ul>
+  <% categories.each do |category| %>
+    <li style="border: 1px solid #000; margin-bottom: 10px; padding: 10px;">
+      <a href="/categories/<%= category[:id] %>">
+        <%= category[:name] %>
+      </a>
+      |
+      <a href="/categories/<%= category[:id] %>/edit">Редактировать</a>
+    </li>
+  <% end %>
+</ul>
