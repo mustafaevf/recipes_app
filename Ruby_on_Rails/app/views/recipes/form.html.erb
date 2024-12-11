@@ -1,0 +1,41 @@
+<h1>Добавить новый рецепт</h1>
+<%= form_with model: @recipe, local: true do |f| %>
+  <div>
+    <%= f.label :title, "Название" %>
+    <%= f.text_field :title, class: 'input' %>
+  </div>
+
+  <div>
+    <%= f.label :ingredients, "Ингредиенты" %>
+    <%= f.text_area :ingredients, class: 'input' %>
+  </div>
+
+  <div>
+    <%= f.label :instructions, "Инструкция" %>
+    <%= f.text_area :instructions, class: 'input' %>
+  </div>
+
+  <div>
+    <%= f.label :preparation_time, "Время приготовления (минуты)" %>
+    <%= f.number_field :preparation_time, class: 'input' %>
+  </div>
+
+  <div>
+    <%= f.label :difficulty, "Сложность" %>
+    <%= f.select :difficulty, ['Легкий', 'Средний', 'Сложный'], {}, class: 'input' %>
+  </div>
+
+  <div>
+    <%= f.label :category_id, "Категория" %>
+    <%= f.collection_select :category_id, @categories, :id, :name, prompt: "Выберите категорию", class: 'input' %>
+  </div>
+
+  <div>
+    <%= f.label :image_url, "URL изображения" %>
+    <%= f.text_field :image_url, class: 'input' %>
+  </div>
+
+  <div>
+    <%= f.submit "Добавить рецепт", class: 'btn' %>
+  </div>
+<% end %>

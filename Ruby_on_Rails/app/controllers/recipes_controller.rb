@@ -4,24 +4,34 @@ class RecipesController < ApplicationController
   # GET /recipes
   def index
     @recipes = Recipe.all
-    render json: @recipes
+    @categories = Category.all
+    render :index
+  end
+
+  # GET /recipes/new
+  def new
+    @recipe = Recipe.new
+    @categories = Category.all
+    render :form # Загрузит форму show.html.erb
   end
 
   # GET /recipes/:id
   def show
-    render json: @recipe
+    render :show
   end
 
   # POST /recipes
   def create
+    @categories = Category.all
     @recipe = Recipe.new(recipe_params)
 
     if @recipe.save
-      render json: @recipe, status: :created
+      redirect_to @recipe, notice: 'Рецепт был успешно добавлен.'
     else
-      render json: @recipe.errors, status: :unprocessable_entity
+      render :form
     end
   end
+
 
   # PUT /recipes/:id
   def update
@@ -47,6 +57,7 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :ingredients, :instructions, :preparation_time, :difficulty, :category_id)
+    params.require(:recipe).permit(:title, :ingredients, :instructions, :preparation_time, :difficulty, :category_id, :image_url)
   end
+
 end

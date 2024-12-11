@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes Book</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            font-size: 1rem;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 10px auto;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        input {
+            outline: none;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .input {
+            border-radius: .7rem;
+            border: 1px solid #e0e0e0;
+            padding: .8rem .9rem;
+            cursor: pointer;
+        }
+
+        button {
+            background: #11c920;
+            color: #fff;
+            border-radius: .7rem;
+            outline: none;
+            border: none;
+            padding: .8rem 1rem;
+            cursor: pointer;
+            transition: .3s background;
+        }
+
+        a.btn {
+            border: 1px solid #11c920;
+            background: transparent;
+            border-radius: .7rem;
+            color: #11c920;
+            outline: none;
+            padding: .8rem 1rem;
+            cursor: pointer;
+            transition: .3s background;
+        }
+
+        button:hover {
+            background: #11c920bd;
+            transition: .3s background;
+        }
+
+        .mt-1 {
+            margin-top: 1rem;
+        }
+
+        .block {
+            border: 1px solid #e0e0e0;
+            border-radius: .7rem;
+            padding: .8rem 1rem;
+            display: flex;
+            gap: 1.1rem;
+        }
+
+        .block img {
+            border-radius: .3rem;
+            max-width: 150px;
+            height: auto;
+        }
+
+        .font-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .font-middle {
+            font-size: .9rem;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            gap: 1rem;
+        }
+
+        .limit {
+            max-height: 2.1rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
+
+        .add-recipe {
+            background: #007bff;
+            color: #fff;
+            padding: .8rem 1rem;
+            border-radius: .7rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .3s background;
+        }
+
+        .add-recipe:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header flex" style="justify-content: space-between; align-items: center;">
+            <a href="/">RecipesBook</a>
+            <a href="<%= new_recipe_path %>" class="add-recipe">Добавить новый рецепт</a>
+        </div>
+
+        <div class="flex flex-col mt-1">
+            <div class="flex" style="gap: 1rem;">
+                <div class="input" style="width: 100%;">
+                    <input type="text" placeholder="Введите название рецепта">
+                </div>
+                <button>Найти</button>
+            </div>
+
+            <div class="grid mt-1">
+                <% @recipes.each do |recipe| %>
+                    <div class="block">
+                        <div class="block-left">
+                            <img
+                                src="<%= recipe.image_url.present? ? recipe.image_url : asset_path('default-image.png') %>"
+                                alt="<%= recipe.title %>">
+                        </div>
+                        <div class="block-right flex flex-col" style="gap: .4rem;">
+                            <div class="font-title">
+                                <%= recipe.title %>
+                            </div>
+                            <div class="font-middle limit">
+                                <%= recipe.ingredients %>
+                            </div>
+                            <div class="font-middle">
+                                <span>Время приготовления: </span> <%= recipe.preparation_time %> минут
+                            </div>
+                            <div class="flex" style="justify-content: end;">
+                                <a href="<%= recipe_path(recipe) %>" class="btn">Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
