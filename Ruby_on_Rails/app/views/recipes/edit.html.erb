@@ -3,87 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добавить новый рецепт</title>
+    <title>Изменить текущий рецепт</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: sans-serif;
             font-size: 1rem;
-            background-color: #f8f8f8;
-            color: #333;
+            background-color: #f4f4f4;
+            line-height: 1.5;
         }
-
         .wrapper {
             max-width: 1200px;
             margin: 20px auto;
             background: #fff;
             padding: 2rem;
             border-radius: .7rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            color: #2d2d2d;
-        }
-
-        .field {
-            margin-bottom: 1.5rem;
-        }
-
-        .input {
-            border-radius: .7rem;
-            border: 1px solid #e0e0e0;
-            padding: .8rem 1rem;
-            width: 100%;
-            font-size: 1rem;
-            color: #333;
-            outline: none;
-            transition: border-color 0.3s ease-in-out;
-        }
-
-        .input:focus {
-            border-color: #11c920;
-        }
-
-        .btn {
-            background: #11c920;
-            color: #fff;
-            border-radius: .7rem;
-            padding: .8rem 1.2rem;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background 0.3s;
-            width: 100%;
-        }
-
-        .btn:hover {
-            background: #0fa214;
-        }
-
-        .btn:active {
-            background: #0b8e0f;
-        }
-
-        label {
-            font-size: 1rem;
-            font-weight: bold;
-            display: block;
-            margin-bottom: .5rem;
-            color: #2d2d2d;
-        }
-
         .header {
             margin-bottom: 2rem;
             display: flex;
@@ -103,6 +43,46 @@
             background: #11c920;
             color: #fff;
         }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .field {
+            margin-bottom: 1.5rem;
+        }
+        .input {
+            border-radius: .7rem;
+            border: 1px solid #e0e0e0;
+            padding: .8rem .9rem;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .btn {
+            background: #11c920;
+            color: #fff;
+            border-radius: .7rem;
+            padding: .8rem 1rem;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background: #0fa214;
+        }
+        .btn:active {
+            background: #0b8e0f;
+        }
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: .5rem;
+        }
     </style>
 </head>
 <body>
@@ -110,9 +90,7 @@
         <div class="header">
             <a href="/">Recipes Book</a>
         </div>
-
-        <h1>Добавить новый рецепт</h1>
-
+        <h1>Изменить текущий рецепт</h1>
         <%= form_with model: @recipe, local: true do |f| %>
             <div class="field">
                 <%= f.label :title, "Название" %>
