@@ -1,14 +1,125 @@
-<!-- views/show.erb -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<h1><%= @recipe.title %></h1>
-<p><strong>Ингредиенты:</strong> <%= @recipe.ingredients %></p>
-<p><strong>Инструкции:</strong> <%= @recipe.instructions %></p>
-<p><strong>Время приготовления:</strong> <%= @recipe.preparation_time %> минут</p>
-<p><strong>Сложность:</strong> <%= @recipe.difficulty %></p>
-<p><strong>Категория:</strong> <%= @recipe.category_id %></p>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
 
-<form action="/recipes/<%= @recipe.id %>" method="POST">
-  <input type="hidden" name="_method" value="delete">
-  <button type="submit">Удалить рецепт</button>
-  <a href="/">Вернуться на главную</a>
-</form>
+        .wrapper {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .header img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: brightness(70%);
+        }
+
+        .header h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            margin: 0;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .content p {
+            margin-bottom: 10px;
+        }
+
+        .content strong {
+            color: #4CAF50;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background: #c0392b;
+        }
+
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <img src="<%= @recipe.image_url %>" alt="Recipe Image">
+            <h1><%= @recipe.title %></h1>
+        </div>
+
+        <div class="content">
+            <p><strong>Ингредиенты:</strong> <%= @recipe.ingredients %></p>
+            <p><strong>Инструкции:</strong> <%= @recipe.instructions %></p>
+            <p><strong>Время приготовления:</strong> <%= @recipe.preparation_time %> минут</p>
+            <p><strong>Сложность:</strong> <%= @recipe.difficulty %></p>
+            <p><strong>Категория:</strong> <%= @recipe.category_id %></p>
+
+            <div class="buttons">
+                <form action="/recipes/<%= @recipe.id %>" method="POST" style="margin: 0;">
+                    <input type="hidden" name="_method" value="delete">
+                    <button type="submit">Удалить рецепт</button>
+                </form>
+                <a href="/">Вернуться на главную</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

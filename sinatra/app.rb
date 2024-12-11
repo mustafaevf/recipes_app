@@ -5,19 +5,10 @@ require './models/category'
 
 set :database_file, 'config/database.yml'
 
-# Не нужно явно вызывать run Sinatra::Application, Sinatra делает это автоматически.
-
 get '/' do
     @recipes = Recipe.all
     erb :index
-  end
-  
- 
-get '/recipes/:id' do
-    @recipe = Recipe.find(params[:id])
-    erb :show
-  end
-
+end
 
 # Отображение формы для редактирования рецепта
 get '/recipes/:id/edit' do
@@ -44,12 +35,35 @@ get '/recipes/:id/edit' do
   
 # Показать форму для добавления нового рецепта
 get '/recipes/new' do
-    erb :new  # Показывает страницу с формой
-  end
+  erb :new  
+end
   
-  # Добавить новый рецепт
-  post '/recipes' do
-    recipe_data = params[:recipe]
+# В вашем контроллере (например, в app.rb)
+require 'sinatra'
+require 'fileutils'
+
+post '/recipes' do
+  recipe_data = params[:recipe]
+  
+  # Обработка изображения, если оно было загружено
+  if params[:recipe][:image] && params[:recipe][:image][:tempfile]
+    # Сохранение изображения в папку uploads
+    image_filename = params[:recipe][:image][:filename]
+    image_path = "public/uploads/#{image_filename}"
+    FileUtils.cp(params[:recipe][:image][:tempfile], image_path)
+
+    # Создание нового рецепта с путем к изображению
+    recipe = Recipe.new(
+      title: recipe_data[:title],
+      ingredients: recipe_data[:ingredients],
+      instructions: recipe_data[:instructions],
+      preparation_time: recipe_data[:preparation_time],
+      difficulty: recipe_data[:difficulty],
+      category_id: recipe_data[:category_id],
+      image_url: "/uploads/#{image_filename}" # Сохраняем путь к изображению
+    )
+  else
+    # Если изображение не загружено, сохраняем рецепт без изображения
     recipe = Recipe.new(
       title: recipe_data[:title],
       ingredients: recipe_data[:ingredients],
@@ -58,13 +72,15 @@ get '/recipes/new' do
       difficulty: recipe_data[:difficulty],
       category_id: recipe_data[:category_id]
     )
-  
-    if recipe.save
-      redirect '/'  # После сохранения редиректим на главную страницу
-    else
-      "Ошибка при добавлении рецепта"
-    end
   end
+
+  # Сохранение рецепта в базу данных
+  if recipe.save
+    redirect '/'  # После сохранения редиректим на главную страницу
+  else
+    "Ошибка при добавлении рецепта"
+  end
+end
 
 # Удаление рецепта
 delete '/recipes/:id' do
@@ -72,3 +88,33 @@ delete '/recipes/:id' do
     recipe.destroy
     redirect '/'
   end
+
+  get '/recipes' do
+    if params[:difficulty]
+      @recipes = Recipe.where(difficulty: params[:difficulty])
+    else
+      @recipes = Recipe.all
+    end
+    erb :index
+  end
+
+  get '/search' do
+    # Получаем значение запроса из формы
+    query = params[:query]
+    
+    # Если есть запрос, ищем рецепты по названию
+    if query && !query.empty?
+        @recipes = Recipe.where("title LIKE ?", "%#{query}%")
+    else
+        # Если запрос пустой, показываем все рецепты
+        @recipes = Recipe.all
+    end
+
+    # Отображаем страницу с рецептами
+    erb :index  # Или другой шаблон, который отображает рецепты
+end
+
+  get '/recipes/:id' do
+    @recipe = Recipe.find(params[:id])
+    erb :show
+end

@@ -1,30 +1,147 @@
-<!-- views/edit.erb -->
-<h1>Редактировать рецепт</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать рецепт</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<form action="/recipes/<%= @recipe.id %>" method="POST">
-  <input type="hidden" name="_method" value="put">
-  
-  <label for="title">Название:</label>
-  <input type="text" name="title" id="title" value="<%= @recipe.title %>" required>
-  
-  <label for="ingredients">Ингредиенты:</label>
-  <textarea name="ingredients" id="ingredients" required><%= @recipe.ingredients %></textarea>
-  
-  <label for="instructions">Инструкции:</label>
-  <textarea name="instructions" id="instructions" required><%= @recipe.instructions %></textarea>
-  
-  <label for="preparation_time">Время приготовления:</label>
-  <input type="number" name="preparation_time" id="preparation_time" value="<%= @recipe.preparation_time %>" required>
-  
-  <label for="difficulty">Сложность:</label>
-  <select name="difficulty" id="difficulty">
-    <option value="Лёгкий" <%= 'selected' if @recipe.difficulty == 'Лёгкий' %>>Лёгкий</option>
-    <option value="Средний" <%= 'selected' if @recipe.difficulty == 'Средний' %>>Средний</option>
-    <option value="Трудный" <%= 'selected' if @recipe.difficulty == 'Трудный' %>>Трудный</option>
-  </select>
-  
-  <label for="category_id">Категория:</label>
-  <input type="number" name="category_id" id="category_id" value="<%= @recipe.category_id %>" required>
-  
-  <button type="submit">Сохранить изменения</button>
-</form>
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+        }
+
+        .wrapper {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #27ae60;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #219150;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.inline {
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group.inline label {
+            flex: 1;
+        }
+
+        .form-group.inline input,
+        .form-group.inline select {
+            flex: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Редактировать рецепт</h1>
+
+        <form action="/recipes/<%= @recipe.id %>" method="POST">
+            <input type="hidden" name="_method" value="put">
+
+            <div class="form-group">
+                <label for="title">Название:</label>
+                <input type="text" name="title" id="title" value="<%= @recipe.title %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ingredients">Ингредиенты:</label>
+                <textarea name="ingredients" id="ingredients" required><%= @recipe.ingredients %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="instructions">Инструкции:</label>
+                <textarea name="instructions" id="instructions" required><%= @recipe.instructions %></textarea>
+            </div>
+
+            <div class="form-group inline">
+                <label for="preparation_time">Время приготовления (мин):</label>
+                <input type="number" name="preparation_time" id="preparation_time" value="<%= @recipe.preparation_time %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="difficulty">Сложность:</label>
+                <select name="difficulty" id="difficulty">
+                    <option value="Лёгкий" <%= 'selected' if @recipe.difficulty == 'Лёгкий' %>>Лёгкий</option>
+                    <option value="Средний" <%= 'selected' if @recipe.difficulty == 'Средний' %>>Средний</option>
+                    <option value="Трудный" <%= 'selected' if @recipe.difficulty == 'Трудный' %>>Трудный</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="category_id">Категория:</label>
+                <input type="number" name="category_id" id="category_id" value="<%= @recipe.category_id %>" required>
+            </div>
+
+            <button type="submit">Сохранить изменения</button>
+        </form>
+    </div>
+</body>
+</html>

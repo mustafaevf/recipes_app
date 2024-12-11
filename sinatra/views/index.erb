@@ -1,16 +1,264 @@
-<!-- views/index.erb -->
-<h1>Все рецепты</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Book</title>
+    <style>
+    /* Сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-<a href="/recipes/new">Добавить новый рецепт</a>
+/* Основные стили */
+body {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 20px;
+}
 
-<ul>
-  <% @recipes.each do |recipe| %>
-    <li>
-      <h2><%= recipe.title %></h2>
-      <p><%= recipe.ingredients %></p>
-      <p><%= recipe.difficulty %></p>
-      <a href="/recipes/<%= recipe.id %>">Подробнее</a>
-      <a href="/recipes/<%= recipe.id %>/edit">Редактировать</a> <!-- Кнопка редактирования -->
-    </li>
-  <% end %>
-</ul>
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header a {
+    font-size: 2rem;
+    color: #27ae60;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header a:hover {
+    color: #219150;
+}
+
+/* Поисковая строка */
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-container button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-container button:hover {
+    background-color: #219150;
+}
+
+/* Кнопка добавления рецепта */
+.add-recipe-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #f39c12;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.add-recipe-button:hover {
+    background-color: #e67e22;
+}
+
+/* Основной контент */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 20px;
+}
+
+aside {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+aside .block-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside li {
+    margin-bottom: 10px;
+}
+
+aside a {
+    color: #27ae60;
+    text-decoration: none;
+}
+
+aside a:hover {
+    text-decoration: underline;
+}
+
+.recipes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.recipe-card {
+    display: flex;
+    gap: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.recipe-details {
+    flex: 1;
+}
+
+.recipe-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.recipe-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    max-height: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.recipe-time {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #444;
+}
+
+.recipe-actions {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.recipe-actions a {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 1px solid #27ae60;
+    color: #27ae60;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.recipe-actions a:hover {
+    background-color: #27ae60;
+    color: #fff;
+}
+</style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <a href="/">Recipe Book</a>
+        </header>
+
+        <form action="/search" method="get" class="search-container">
+        <input type="text" name="query" placeholder="Введите название рецепта" value="<%= params[:query] %>">
+        <button type="submit">Найти</button>
+    </form>
+    
+
+        <!-- Кнопка добавления рецепта -->
+        <a href="/recipes/new" class="add-recipe-button">Добавить рецепт</a>
+
+        <div class="grid">
+            <aside>
+                <div class="block-title">Категории</div>
+                <ul>
+                    <li><a href="#">Завтраки</a></li>
+                    <li><a href="#">Обеды</a></li>
+                    <li><a href="#">Ужины</a></li>
+                </ul>
+            </aside>
+
+            <div class="recipes-container">
+    <% @recipes.each do |recipe| %>
+    <div class="recipe-card">
+        <img src="<%= recipe.image_url %>" alt="">
+        <div class="recipe-details">
+            <div class="recipe-title"><%= recipe.title %></div>
+            <div class="recipe-description"><%= recipe.ingredients %></div>
+            <div class="recipe-time">Время приготовления: <%= recipe.preparation_time %> минут</div>
+        </div>
+        <div class="recipe-actions">
+            <a href="/recipes/<%= recipe.id %>">Подробнее</a>
+            <a href="/recipes/<%= recipe.id %>/edit">Редактировать</a>
+        </div>
+    </div>
+    <% end %>
+</div>
+
+        </div>
+    </div>
+</body>
+</html>
