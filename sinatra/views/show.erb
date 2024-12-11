@@ -1,0 +1,14 @@
+<!-- views/show.erb -->
+
+<h1><%= @recipe.title %></h1>
+<p><strong>Ингредиенты:</strong> <%= @recipe.ingredients %></p>
+<p><strong>Инструкции:</strong> <%= @recipe.instructions %></p>
+<p><strong>Время приготовления:</strong> <%= @recipe.preparation_time %> минут</p>
+<p><strong>Сложность:</strong> <%= @recipe.difficulty %></p>
+<p><strong>Категория:</strong> <%= @recipe.category_id %></p>
+
+<form action="/recipes/<%= @recipe.id %>" method="POST">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Удалить рецепт</button>
+  <a href="/">Вернуться на главную</a>
+</form>

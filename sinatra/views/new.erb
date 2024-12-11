@@ -1,0 +1,26 @@
+<!-- new.erb -->
+<form action="/recipes" method="post">
+  <label for="title">Название:</label>
+  <input type="text" name="recipe[title]" id="title" required>
+  
+  <label for="ingredients">Ингредиенты:</label>
+  <textarea name="recipe[ingredients]" id="ingredients" required></textarea>
+  
+  <label for="instructions">Инструкции:</label>
+  <textarea name="recipe[instructions]" id="instructions" required></textarea>
+  
+  <label for="preparation_time">Время приготовления:</label>
+  <input type="text" name="recipe[preparation_time]" id="preparation_time" required>
+  
+  <label for="difficulty">Сложность:</label>
+  <input type="text" name="recipe[difficulty]" id="difficulty" required>
+  
+  <label for="category_id">Категория:</label>
+  <select name="recipe[category_id]" id="category_id">
+    <% Category.all.each do |category| %>
+      <option value="<%= category.id %>"><%= category.name %></option>
+    <% end %>
+  </select>
+  
+  <button type="submit">Добавить рецепт</button>
+</form>

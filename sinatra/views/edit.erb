@@ -1,0 +1,30 @@
+<!-- views/edit.erb -->
+<h1>Редактировать рецепт</h1>
+
+<form action="/recipes/<%= @recipe.id %>" method="POST">
+  <input type="hidden" name="_method" value="put">
+  
+  <label for="title">Название:</label>
+  <input type="text" name="title" id="title" value="<%= @recipe.title %>" required>
+  
+  <label for="ingredients">Ингредиенты:</label>
+  <textarea name="ingredients" id="ingredients" required><%= @recipe.ingredients %></textarea>
+  
+  <label for="instructions">Инструкции:</label>
+  <textarea name="instructions" id="instructions" required><%= @recipe.instructions %></textarea>
+  
+  <label for="preparation_time">Время приготовления:</label>
+  <input type="number" name="preparation_time" id="preparation_time" value="<%= @recipe.preparation_time %>" required>
+  
+  <label for="difficulty">Сложность:</label>
+  <select name="difficulty" id="difficulty">
+    <option value="Лёгкий" <%= 'selected' if @recipe.difficulty == 'Лёгкий' %>>Лёгкий</option>
+    <option value="Средний" <%= 'selected' if @recipe.difficulty == 'Средний' %>>Средний</option>
+    <option value="Трудный" <%= 'selected' if @recipe.difficulty == 'Трудный' %>>Трудный</option>
+  </select>
+  
+  <label for="category_id">Категория:</label>
+  <input type="number" name="category_id" id="category_id" value="<%= @recipe.category_id %>" required>
+  
+  <button type="submit">Сохранить изменения</button>
+</form>
