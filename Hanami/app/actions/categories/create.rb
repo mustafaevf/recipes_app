@@ -8,14 +8,14 @@ module RecepiesDz
 
         params do
           required(:name).filled(:string)
-          required(:isActive).filled(:bool)
+          required(:is_active).filled(:bool)
         end
 
         def handle(request, response)
           if request.params.valid?
             category_repo.create(
               name: request.params[:name],
-              isActive: request.params[:isActive],
+              is_active: request.params[:is_active],
             )
             response.redirect '/'
           else

@@ -1,8 +1,15 @@
-<h1>Добавить рецепт</h1>
+<h1 class="mt-1">Добавить рецепт</h1>
 
-<form action="/recipes" method="POST" style="display: flex; flex-direction: column">
+<form action="/recipes" method="POST" class="flex flex-col mt-1" style="gap: .5rem;">
   <label for="title">Название:</label>
-  <input type="text" id="title" name="title" required>
+  <div class="input">
+    <input type="text" id="title" name="title" required>
+  </div>
+
+  <label for="title">Сслыка на изображение:</label>
+  <div class="input">
+    <input type="text" id="image_url" name="image_url" required>
+  </div>
 
   <label for="category">Категория:</label>
   <select id="category" name="category_id" required>
@@ -12,13 +19,19 @@
   </select>
 
   <label for="ingredients">Ингредиенты:</label>
-  <textarea id="ingredients" name="ingredients" required></textarea>
+  <div class="input">
+    <textarea id="ingredients" name="ingredients" required></textarea>
+  </div>
 
   <label for="instructions">Инструкция:</label>
-  <textarea id="instructions" name="instructions" required></textarea>
+  <div class="input">
+    <textarea id="instructions" name="instructions" required></textarea>
+  </div>
 
   <label for="preparation_time">Время приготовления (в минутах):</label>
-  <input type="number" id="preparation_time" name="preparation_time" required>
+  <div class="input">
+    <input type="number" id="preparation_time" name="preparation_time" required>
+  </div>
 
   <label for="difficulty">Сложность:</label>
   <select id="difficulty" name="difficulty" required>

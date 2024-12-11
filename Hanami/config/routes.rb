@@ -15,5 +15,6 @@ module RecepiesDz
     get "/categories/new", to: "categories.new"
     post "/categories", to: "categories.create"
     get "/categories/:id", to: "categories.show"
+    get "/recipes/search", to: "recipes.search"
   end
 end

@@ -12,6 +12,7 @@ module RecepiesDz
           required(:ingredients).filled(:string)
           required(:instructions).filled(:string)
           required(:preparation_time).filled(:integer)
+          required(:image_url).filled(:string)
           required(:difficulty).filled(:string)
         end
 
@@ -23,6 +24,7 @@ module RecepiesDz
               ingredients: request.params[:ingredients],
               instructions: request.params[:instructions],
               preparation_time: request.params[:preparation_time],
+              image_url: request.params[:image_url],
               difficulty: request.params[:difficulty]
             )
             response.redirect '/'

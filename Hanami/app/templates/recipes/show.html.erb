@@ -1,18 +1,61 @@
-<h1>Рецепт: <%= recipe[:title] %></h1>
+<div class="grid mt-1">
+<div class="flex flex-col" style="gap: .5rem;">
+    <a href="/" class="choose">
+      Показать все
+    </a>
+    <% active_category_id = recipe[:category_id] %>
+    <% categories.each do |category| %>  
+        <% active_class = active_category_id == category[:id] ? 'active' : '' %>
+      <a href="/categories/<%= category[:id] %>" class="choose <%= active_class %>">  <%= category[:name] %></a>
+    <% end %>
+</div>
 
-<p><strong>Ингредиенты:</strong> <%= recipe[:ingredients] %></p>
-<p><strong>Инструкция:</strong> <%= recipe[:instructions] %></p>
-<p><strong>Время приготовления:</strong> <%= recipe[:preparation_time] %> минут</p>
-<p><strong>Категория:</strong> <%= recipe[:category_id] %></p>
-<p><strong>Сложность:</strong> <%= recipe[:difficulty] %></p>
-
-<div>
-  <form action="/recipes/<%= recipe[:id] %>/edit" method="GET" style="display:inline;">
-    <button type="submit">Редактировать</button>
-  </form>
-
-  <form action="/recipes/<%= recipe[:id] %>" method="POST" style="display:inline;">
-    <input type="hidden" name="_method" value="DELETE">
-    <button type="submit">Удалить</button>
-  </form>
+<div class="flex flex-col" style="gap: .5rem">
+    <div class="block">
+        <div class="block-left">
+          <img src="<%= recipe[:image_url] %>" alt="">
+        </div>
+        <div class="block-right flex flex-col" style="gap: .4rem;">
+            <div class="font-title">
+                Рецепты <%= recipe[:title] %>                       
+            </div>
+            <div class="font-middle">
+                <%= recipe[:instructions] %>
+            </div>
+            <div class="font-middle">
+                <span>Время приготовления: </span> <%= recipe[:preparation_time] %> минут                        
+            </div>
+            <div class="font-middle">
+                <span>Сложность: </span> <%= recipe[:difficulty] %>                        
+            </div>
+            <div>
+            <a class="btn" href="/recipes/<%= recipe[:id] %>/edit">Редактировать</a>
+          
+            <form action="/recipes/<%= recipe[:id] %>" method="POST" style="display:inline;">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit">Удалить</button>
+            </form>
+          </div>
+          
+        </div>
+        
+    </div>
+    <div class="flex">
+        <div class="list flex flex-col" style="gap: .3rem;">
+          <% recipe[:ingredients].split(',').each do |ingredient| %>
+            <div class="list-p"><%= ingredient.strip %></div>
+          <% end %>
+        </div>
+        <div class="block flex flex-col" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+          
+            <div class="font-title">
+                Инструкция
+            </div>
+            
+            <% recipe[:instructions].split('.').each do |instruction| %>
+              <div class="font-middle"><%= instruction.strip %></div>
+            <% end %>  
+        </div>
+    </div>
+</div>
 </div>

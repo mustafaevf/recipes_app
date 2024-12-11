@@ -4,5 +4,6 @@ require "hanami"
 
 module RecepiesDz
   class App < Hanami::App
+   
   end
 end

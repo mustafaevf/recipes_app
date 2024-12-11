@@ -1,11 +1,18 @@
-<h1>Добавить категорию</h1>
+<h1 class="mt-1">Добавить категорию</h1>
 
-<form action="/categories" method="POST" style="display: flex; flex-direction: column">
+<form action="/categories" method="POST" class="flex flex-col mt-1" style="gap: .5rem;">
   <label for="title">Название:</label>
-  <input type="text" id="name" name="name" required>
+  <div class="input">
+    <input type="text" id="name" name="name" required>
+  </div>
   
-  <label for="isActive">Доступность</label>
-  <input type="checkbox" value=true name="isActive" id="isActive" />
+  <div class="custom-checkbox">
+  <label>
+    <input type="checkbox" class="checkbox-hidden" id="is_active" name="is_active">
+    <span class="checkbox-custom"></span>
+    Доступность
+  </label>
+  </div>
 
   <button type="submit">Добавить</button>
 </form>

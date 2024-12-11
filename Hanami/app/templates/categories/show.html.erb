@@ -1,12 +1,39 @@
-<h1>Рецепты с категорией</h1>
-
-<ul>
-  <% recipes.each do |recipe| %>
-    <div style="border: 1px solid #000; margin-bottom: 10px; padding: 10px;">
-      <a href="/recipes/<%= recipe[:id] %>">
-        <li>Название: <%= recipe[:title] %></li>
-        <li>Время приготовления: <%= recipe[:preparation_time] %> минут</li>
+<div class="grid mt-1">
+<div class="flex flex-col" style="gap: .5rem;">
+    <a href="/" class="choose">
+      Показать все
+    </a>
+    <% categories.each do |category| %>  
+      <% active_class = request.path == "/categories/#{category[:id]}" ? 'active' : '' %>
+      <a href="/categories/<%= category[:id] %>" class="choose <%= active_class %>">
+        <%= category[:name] %>
       </a>
+    <% end %>
+</div>
+<div class="flex flex-col" style="gap: 1rem">
+  <% recipes.each do |recipe| %>
+  <div class="block">
+    <div class="block-left">
+      <img src="<%= recipe[:image_url] %>" alt="">
     </div>
+    <div class="block-right flex flex-col" style="gap: .4rem;">
+        <div class="font-title">
+            Рецепты <%= recipe[:title] %>                       
+        </div>
+        <div class="font-middle limit">
+            <%= recipe[:instructions] %>
+        </div>
+        <div class="font-middle">
+          <%= categories.find { |category| category[:id] == recipe[:category_id] }[:name] %>
+        </div>
+        <div class="font-middle">
+            <span>Время приготовления: </span> <%= recipe[:preparation_time] %> минут                        
+        </div>
+        <div class="flex" style="justify-content: end;">
+            <a href="/recipes/<%= recipe[:id] %>" class="btn">Подробнее</a>
+        </div>
+    </div>
+  </div>
   <% end %>
-</ul>
+</div>
+</div>

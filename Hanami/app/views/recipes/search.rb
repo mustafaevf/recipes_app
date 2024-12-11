@@ -2,9 +2,11 @@
 
 module RecepiesDz
   module Views
-    module Categories
-      class Show < RecepiesDz::View
+    module Recipes
+      class Search < RecepiesDz::View
         include Deps["repos.category_repo"]
+
+        expose :query
         expose :recipes
         expose :categories do
           category_repo.all

@@ -16,6 +16,10 @@ module RecepiesDz
         recipes.where(category_id: category_id).to_a
       end
 
+      def search_by_title(query)
+        recipes.where { title.ilike("%#{query}%") }.to_a
+      end
+
       def create(data)
         recipes.command(:create).call(data)
       end
@@ -27,7 +31,7 @@ module RecepiesDz
       def delete(id)
         recipes.where(id: id).delete
       end
-
+      
     end
   end
 end
