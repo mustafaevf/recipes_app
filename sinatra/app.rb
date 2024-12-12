@@ -3,12 +3,48 @@ require 'sinatra/activerecord'
 require './models/recipe'
 require './models/category'
 
+
 set :database_file, 'config/database.yml'
 
-get '/' do
+
+get '/search' do
+  query = params[:query]
+  
+  if query && !query.strip.empty?
+    # Поиск рецептов по названию
+    @recipes = Recipe.where('title ILIKE ?', "%#{query}%")
+  else
+    # Если запрос пустой, возвращаем все рецепты
     @recipes = Recipe.all
-    erb :index
+  end
+  
+  # Загружаем категории для отображения
+  @categories = Category.all
+
+  erb :index
 end
+
+# Фильтрация рецептов по категории
+get '/categories/:id' do
+  @category = Category.find(params[:id])
+  @recipes = @category.recipes
+  erb :index
+end
+
+get '/' do
+  query = params[:query]
+  
+  if query && !query.strip.empty?
+    @recipes = Recipe.where('title ILIKE ?', "%#{query}%")
+  else
+    @recipes = Recipe.all
+  end
+
+  @categories = Category.all
+
+  erb :index
+end
+
 
 # Отображение формы для редактирования рецепта
 get '/recipes/:id/edit' do
@@ -38,49 +74,27 @@ get '/recipes/new' do
   erb :new  
 end
   
-# В вашем контроллере (например, в app.rb)
-require 'sinatra'
-require 'fileutils'
 
 post '/recipes' do
   recipe_data = params[:recipe]
-  
-  # Обработка изображения, если оно было загружено
-  if params[:recipe][:image] && params[:recipe][:image][:tempfile]
-    # Сохранение изображения в папку uploads
-    image_filename = params[:recipe][:image][:filename]
-    image_path = "public/uploads/#{image_filename}"
-    FileUtils.cp(params[:recipe][:image][:tempfile], image_path)
+  recipe = Recipe.new(
+    title: recipe_data[:title],
+    ingredients: recipe_data[:ingredients],
+    instructions: recipe_data[:instructions],
+    preparation_time: recipe_data[:preparation_time],
+    difficulty: recipe_data[:difficulty],
+    category_id: recipe_data[:category_id],
+    image_url: recipe_data[:image_url]
+  )
 
-    # Создание нового рецепта с путем к изображению
-    recipe = Recipe.new(
-      title: recipe_data[:title],
-      ingredients: recipe_data[:ingredients],
-      instructions: recipe_data[:instructions],
-      preparation_time: recipe_data[:preparation_time],
-      difficulty: recipe_data[:difficulty],
-      category_id: recipe_data[:category_id],
-      image_url: "/uploads/#{image_filename}" # Сохраняем путь к изображению
-    )
-  else
-    # Если изображение не загружено, сохраняем рецепт без изображения
-    recipe = Recipe.new(
-      title: recipe_data[:title],
-      ingredients: recipe_data[:ingredients],
-      instructions: recipe_data[:instructions],
-      preparation_time: recipe_data[:preparation_time],
-      difficulty: recipe_data[:difficulty],
-      category_id: recipe_data[:category_id]
-    )
-  end
-
-  # Сохранение рецепта в базу данных
   if recipe.save
     redirect '/'  # После сохранения редиректим на главную страницу
   else
     "Ошибка при добавлении рецепта"
   end
 end
+
+
 
 # Удаление рецепта
 delete '/recipes/:id' do

@@ -222,41 +222,44 @@ aside a:hover {
             <a href="/">Recipe Book</a>
         </header>
 
-        <form action="/search" method="get" class="search-container">
+    <form action="/" method="get" class="search-container">
         <input type="text" name="query" placeholder="Введите название рецепта" value="<%= params[:query] %>">
         <button type="submit">Найти</button>
     </form>
     
+    
 
-        <!-- Кнопка добавления рецепта -->
+       
         <a href="/recipes/new" class="add-recipe-button">Добавить рецепт</a>
 
         <div class="grid">
-            <aside>
-                <div class="block-title">Категории</div>
-                <ul>
-                    <li><a href="#">Завтраки</a></li>
-                    <li><a href="#">Обеды</a></li>
-                    <li><a href="#">Ужины</a></li>
-                </ul>
-            </aside>
-
-            <div class="recipes-container">
-    <% @recipes.each do |recipe| %>
-    <div class="recipe-card">
-        <img src="<%= recipe.image_url %>" alt="">
-        <div class="recipe-details">
-            <div class="recipe-title"><%= recipe.title %></div>
-            <div class="recipe-description"><%= recipe.ingredients %></div>
-            <div class="recipe-time">Время приготовления: <%= recipe.preparation_time %> минут</div>
-        </div>
-        <div class="recipe-actions">
-            <a href="/recipes/<%= recipe.id %>">Подробнее</a>
-            <a href="/recipes/<%= recipe.id %>/edit">Редактировать</a>
-        </div>
-    </div>
+        <aside>
+  <div class="block-title">Категории</div>
+  <ul>
+    <% Category.all.each do |category| %>
+      <li><a href="/categories/<%= category.id %>"><%= category.name %></a></li>
     <% end %>
+  </ul>
+</aside>
+   
+    
+<div class="recipes-container">
+<% @recipes.each do |recipe| %>
+  <div class="recipe-card">
+    <img src="<%= recipe.image_url %>" alt="">
+    <div class="recipe-details">
+      <div class="recipe-title"><%= recipe.title %></div>
+      <div class="recipe-description"><%= recipe.ingredients %></div>
+      <div class="recipe-time">Время приготовления: <%= recipe.preparation_time %> минут</div>
+    </div>
+    <div class="recipe-actions">
+      <a href="/recipes/<%= recipe.id %>">Подробнее</a>
+      <a href="/recipes/<%= recipe.id %>/edit">Редактировать</a>
+    </div>
+  </div>
+<% end %>
 </div>
+
 
         </div>
     </div>
