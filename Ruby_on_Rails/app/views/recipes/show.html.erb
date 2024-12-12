@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= @recipe.title %></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 1rem;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: .7rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, .font-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #2d2d2d;
+            margin-bottom: 1rem;
+        }
+
+        .header {
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .block {
+            border: 1px solid #e0e0e0;
+            border-radius: .7rem;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: .3s transform, .3s box-shadow;
+        }
+
+        .block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .block img {
+            border-radius: .3rem;
+            max-width: 300px;
+            height: auto;
+            transition: 0.3s ease-in-out;
+        }
+
+        .block img:hover {
+            transform: scale(1.05);
+        }
+
+        .font-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d2d2d;
+        }
+
+        .font-middle {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .limit {
+            max-height: 3rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
+
+        .list {
+            background: #11c92020;
+            border-radius: .7rem;
+            padding: 1.5rem;
+            flex: 1;
+            margin-right: 1rem;
+        }
+
+        .list div {
+            font-size: 1rem;
+            color: #333;
+            padding: 0.5rem 0;
+        }
+
+        .btn {
+            background: #11c920;
+            color: #fff;
+            border-radius: .7rem;
+            padding: .8rem 1.5rem;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: .3s background;
+            margin-top: 1rem;
+            margin-right: 1rem;
+        }
+
+        .btn:hover {
+            background: #0fa214;
+        }
+
+        .btn:active {
+            background: #0b8e0f;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .mt-1 {
+            margin-top: 1rem;
+        }
+
+        .instruction-block {
+            border: 1px solid #e0e0e0;
+            border-radius: .7rem;
+            padding: 1.5rem;
+            flex: 2;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <a href="/">Recipes Book</a>
+        </div>
+
+        <div class="flex flex-col mt-1">
+            <div class="block">
+                <div class="block-left">
+                    <img src="<%= @recipe.image_url.present? ? @recipe.image_url : asset_path('default-image.png') %>" alt="<%= @recipe.title %>">
+                </div>
+                <div class="block-right flex flex-col" style="gap: .4rem;">
+                    <div class="font-title">
+                        <%= @recipe.title %>
+                    </div>
+                    <div class="font-middle">
+                        <%= @recipe.ingredients %>
+                    </div>
+                    <div class="font-middle">
+                        <span>Время приготовления: </span> <%= @recipe.preparation_time %> минут
+                    </div>
+                    <div class="font-middle">
+                        <span>Уровень сложности: </span> <%= @recipe.difficulty %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex mt-1">
+                <div class="list">
+                    <% @recipe.ingredients.split(',').each do |ingredient| %>
+                        <div>
+                            <%= ingredient.strip %>
+                        </div>
+                    <% end %>
+                </div>
+                <div class="instruction-block">
+                    <div class="font-title">
+                        Инструкция
+                    </div>
+                    <div class="font-middle mt-1">
+                        <%= @recipe.instructions %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex mt-1">
+                <a href="<%= edit_recipe_path(@recipe) %>" class="btn">Редактировать</a>
+                <%= button_to 'Удалить', @recipe, method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn' %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

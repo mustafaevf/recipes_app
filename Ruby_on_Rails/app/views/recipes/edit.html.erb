@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменить текущий рецепт</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: sans-serif;
+            font-size: 1rem;
+            background-color: #f4f4f4;
+            line-height: 1.5;
+        }
+        .wrapper {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: .7rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+        .header a {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #11c920;
+            text-decoration: none;
+            background: #f4f4f4;
+            padding: 0.5rem 1rem;
+            border-radius: .7rem;
+            transition: background-color 0.3s;
+        }
+        .header a:hover {
+            background: #11c920;
+            color: #fff;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .field {
+            margin-bottom: 1.5rem;
+        }
+        .input {
+            border-radius: .7rem;
+            border: 1px solid #e0e0e0;
+            padding: .8rem .9rem;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .btn {
+            background: #11c920;
+            color: #fff;
+            border-radius: .7rem;
+            padding: .8rem 1rem;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background: #0fa214;
+        }
+        .btn:active {
+            background: #0b8e0f;
+        }
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: .5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <a href="/">Recipes Book</a>
+        </div>
+        <h1>Изменить текущий рецепт</h1>
+        <%= form_with model: @recipe, local: true do |f| %>
+            <div class="field">
+                <%= f.label :title, "Название" %>
+                <%= f.text_field :title, class: 'input' %>
+            </div>
+
+            <div class="field">
+                <%= f.label :ingredients, "Ингредиенты" %>
+                <%= f.text_area :ingredients, class: 'input' %>
+            </div>
+
+            <div class="field">
+                <%= f.label :instructions, "Инструкция" %>
+                <%= f.text_area :instructions, class: 'input' %>
+            </div>
+
+            <div class="field">
+                <%= f.label :preparation_time, "Время приготовления (минуты)" %>
+                <%= f.number_field :preparation_time, class: 'input' %>
+            </div>
+
+            <div class="field">
+                <%= f.label :difficulty, "Сложность" %>
+                <%= f.select :difficulty, ['Легкий', 'Средний', 'Сложный'], {}, class: 'input' %>
+            </div>
+
+            <div class="field">
+                <%= f.label :category_id, "Категория" %>
+                <%= f.collection_select :category_id, @categories, :id, :name, prompt: "Выберите категорию", class: 'input' %>
+            </div>
+
+            <div class="field">
+                <%= f.label :image_url, "URL изображения" %>
+                <%= f.text_field :image_url, class: 'input' %>
+            </div>
+
+            <div class="field">
+                <%= f.submit "Добавить рецепт", class: 'btn' %>
+            </div>
+        <% end %>
+    </div>
+</body>
+</html>

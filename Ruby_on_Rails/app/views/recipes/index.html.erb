@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes Book</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 1rem;
+            background: linear-gradient(120deg, #fdfbfb, #ebedee);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: .7rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        h1, .category-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #2d2d2d;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .header a {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #11c920;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .header a:hover {
+             color: #0fa214;
+         }
+
+         .add-recipe {
+             background: #11c920;
+             color: #fff !important;
+             padding: .8rem 1.5rem;
+             border-radius: .7rem;
+             text-decoration: none;
+             font-weight: bold;
+             transition: 0.3s ease;
+             font-size: 1rem;
+         }
+
+         .add-recipe:hover {
+             background: #0fa214;
+             color: #fff;
+         }
+
+         .add-recipe:active {
+             background: #0b8e0f;
+             color: #fff;
+         }
+
+         .input-wrapper {
+             display: flex;
+             gap: 1rem;
+             width: 100%;
+         }
+
+         .input {
+             border-radius: .7rem;
+             border: 1px solid #e0e0e0;
+             padding: 1rem;
+             width: 100%;
+             font-size: 1rem;
+             color: #333;
+             outline: none;
+             transition: border-color 0.3s, box-shadow 0.3s;
+         }
+
+         .input:focus {
+             border-color: #11c920;
+             box-shadow: 0 0 8px rgba(17, 201, 32, 0.3);
+         }
+         button {
+              background: #11c920;
+              color: #fff;
+              border-radius: .7rem;
+              padding: 1rem 1.5rem;
+              cursor: pointer;
+              transition: background 0.3s;
+              font-size: 1rem;
+              border: none;
+              font-weight: bold;
+          }
+
+          button:hover {
+              background: #0fa214;
+          }
+
+          button:active {
+              background: #0b8e0f;
+          }
+
+          .mt-1 {
+              margin-top: 1.5rem;
+          }
+
+          .flex {
+              display: flex;
+          }
+
+          .flex-col {
+              flex-direction: column;
+          }
+
+          .grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+              gap: 2rem;
+          }
+
+          .block {
+              border: 1px solid #e0e0e0;
+              border-radius: .7rem;
+              padding: 1.5rem;
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+              background-color: #fff;
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+              transition: transform 0.3s, box-shadow 0.3s;
+          }
+          .block:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .block img {
+                border-radius: .5rem;
+                max-width: 100%;
+                height: auto;
+                transition: transform 0.3s;
+            }
+
+            .block img:hover {
+                transform: scale(1.05);
+            }
+
+            .font-title {
+                font-size: 1.4rem;
+                font-weight: bold;
+                color: #2d2d2d;
+            }
+
+            .font-middle {
+                font-size: 1rem;
+                color: #555;
+            }
+
+            .limit {
+                max-height: 4.5rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                white-space: normal;
+            }
+
+            .categories {
+                width: 240px;
+                padding: 1.5rem;
+                border-right: 1px solid #e0e0e0;
+                box-sizing: border-box;
+            }
+            .categories a {
+                 display: block;
+                 padding: 1rem;
+                 border-radius: .7rem;
+                 color: #11c920;
+                 text-decoration: none;
+                 margin-bottom: 1rem;
+                 background-color: #f9f9f9;
+                 transition: background-color 0.3s, color 0.3s;
+                 font-size: 1rem;
+             }
+
+             .categories a:hover {
+                 background-color: #11c920;
+                 color: #fff;
+             }
+
+             .category-title {
+                 font-size: 1.5rem;
+                 font-weight: bold;
+                 margin-bottom: 1.5rem;
+                 color: #2d2d2d;
+             }
+
+             .btn {
+                 background: #11c920;
+                 color: #fff;
+                 border-radius: .7rem;
+                 padding: 1rem 1.5rem;
+                 cursor: pointer;
+                 text-align: center;
+                 display: inline-block;
+                 text-decoration: none;
+                 transition: background 0.3s;
+             }
+
+             .btn:hover {
+                 background: #0fa214;
+             }
+
+             .btn:active {
+                 background: #0b8e0f;
+             }
+         </style>
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <a href="/">Recipes Book</a>
+            <a href="<%= new_recipe_path %>" class="add-recipe">Добавить новый рецепт</a>
+        </div>
+
+        <div class="flex mt-1">
+            <!-- Слева столбец категорий -->
+            <div class="categories">
+                <div class="category-title">Категории</div>
+                <% @categories.each do |category| %>
+                    <a href="<%= recipes_path(category_id: category.id) %>"><%= category.name %></a>
+                <% end %>
+            </div>
+
+            <!-- Справа блок поиска и рецептов -->
+            <div class="flex-col" style="flex-grow: 1;">
+                <div class="flex" style="gap: 1rem; width: 100%;">
+                    <%= form_with(url: recipes_path, method: :get, local: true) do |form| %>
+                        <div class="input-wrapper" style="display: flex; width: 100%; gap: 1rem;">
+                            <%= form.text_field :title, placeholder: "Название рецепта", class: 'input' %>
+                            <button type="submit" class="btn">Найти</button>
+                        </div>
+                    <% end %>
+                </div>
+
+
+                <div class="grid mt-1">
+                    <% @recipes.each do |recipe| %>
+                        <div class="block">
+                            <div class="block-left">
+                                <img
+                                    src="<%= recipe.image_url.present? ? recipe.image_url : asset_path('default-image.png') %>"
+                                    alt="<%= recipe.title %>">
+                            </div>
+                            <div class="block-right flex flex-col" style="gap: .4rem;">
+                                <div class="font-title">
+                                    <%= recipe.title %>
+                                </div>
+                                <div class="font-middle limit">
+                                    <%= recipe.ingredients %>
+                                </div>
+                                <div class="font-middle">
+                                    <span>Время приготовления: </span> <%= recipe.preparation_time %> минут
+                                </div>
+                                <div class="flex" style="justify-content: end;">
+                                    <a href="<%= recipe_path(recipe) %>" class="btn">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
