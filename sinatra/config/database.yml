@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: rbdeveloper
+  password: rb-password
+  host: 95.169.162.246
+  port: 5432
+
+development:
+  <<: *default
+  database: recipedevdb
+
+test:
+  <<: *default
+  database: recipedevdb_test
+
+production:
+  <<: *default
+  database: recipedevdb
